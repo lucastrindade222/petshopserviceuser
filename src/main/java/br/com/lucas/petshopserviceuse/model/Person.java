@@ -1,6 +1,7 @@
 package br.com.lucas.petshopserviceuse.domain;
 
 import java.util.Date;
+import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +19,7 @@ public class Person extends User {
     private Date dateRegister;
 
 
-    public Person(String id, String email, String password, String avatarUrl, String name, String familyName,
+    public Person(UUID id, String email, String password, String avatarUrl, String name, String familyName,
             Date birth, Date dateRegister) {
         super(id, email, password, avatarUrl,name);
         this.familyName = familyName;

@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TokenDTO {
+public class CredentialDTO {
 
-   private String token;
+    private String email;
+    private String password;
+
 
 }
