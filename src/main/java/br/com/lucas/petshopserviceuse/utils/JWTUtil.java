@@ -1,4 +1,4 @@
-package br.com.lucas.petshopserviceuse.security;
+package br.com.lucas.petshopserviceuse.utils;
 
 import java.util.Collection;
 import java.util.Date;
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 import br.com.lucas.petshopserviceuse.dto.TokenDTO;
+import br.com.lucas.petshopserviceuse.security.SecurityConstants;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 

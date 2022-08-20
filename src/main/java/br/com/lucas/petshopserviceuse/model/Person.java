@@ -1,4 +1,4 @@
-package br.com.lucas.petshopserviceuse.domain;
+package br.com.lucas.petshopserviceuse.model;
 
 import java.util.Date;
 import java.util.UUID;
@@ -19,7 +19,7 @@ public class Person extends User {
     private Date dateRegister;
 
 
-    public Person(UUID id, String email, String password, String avatarUrl, String name, String familyName,
+    public Person(String id, String email, String password, String avatarUrl, String name, String familyName,
             Date birth, Date dateRegister) {
         super(id, email, password, avatarUrl,name);
         this.familyName = familyName;

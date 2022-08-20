@@ -1,4 +1,4 @@
-package br.com.lucas.petshopserviceuse.domain;
+package br.com.lucas.petshopserviceuse.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "client")
+@Document
 public class Client extends Person {
 
     private long purchases;

@@ -1,4 +1,4 @@
-package br.com.lucas.petshopserviceuse.service;
+package br.com.lucas.petshopserviceuse.service.impl;
 
 
 
@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (usuario == null) {
             throw new UsernameNotFoundException("Usuario não encontrado! "+email);
         }
-        return new UserSS(usuario.getId(),usuario.getEmail(),usuario.getPassword());
+        return new UserSS(usuario.getId(),usuario.getEmail(),usuario.getPassword(),usuario.getRoles());
     }
 
 

@@ -1,4 +1,4 @@
-package br.com.lucas.petshopserviceuse.core;
+package br.com.lucas.petshopserviceuse.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

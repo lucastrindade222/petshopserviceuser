@@ -2,6 +2,7 @@ package br.com.lucas.petshopserviceuse.resource;
 
 import java.util.List;
 
+import br.com.lucas.petshopserviceuse.service.impl.ClientServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,25 +20,25 @@ import br.com.lucas.petshopserviceuse.service.ClientService;
 
 @RestController
 @RequestMapping(value = "client")
-public class ClientControle {
+public class ClientResource {
 
     @Autowired
-    private ClientService service;
+    private ClientServiceImpl service;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping
-    @PreAuthorize("CLIENT")
-    private ResponseEntity<List<Client>> findAll() {
+    @PreAuthorize("ROLE_CLIENTE")
+    public ResponseEntity<List<Client>> findAll() {
 
         List<Client> all = service.findAll();
         return ResponseEntity.ok().body(all);
     }
 
     @PostMapping
-    private ResponseEntity<Client> save(@Validated @RequestBody ClientmodelNew clientModelNew) {
-        System.out.println("teste aqui");
+    public ResponseEntity<Client> save(@Validated @RequestBody ClientmodelNew clientModelNew) {
+
         Client client = modelMapper.map(clientModelNew, Client.class);
         client = service.save(client);
         return ResponseEntity.ok().body(client);

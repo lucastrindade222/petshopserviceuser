@@ -1,4 +1,4 @@
-package br.com.lucas.petshopserviceuse.security;
+package br.com.lucas.petshopserviceuse.security.exception;
 
-public class exception {
+public class JWTAuthenticationFailure {
 }

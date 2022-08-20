@@ -1,4 +1,4 @@
-package br.com.lucas.petshopserviceuse.domain;
+package br.com.lucas.petshopserviceuse.model;
 
 
 
@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Email;
@@ -20,11 +21,11 @@ import java.util.HashSet;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "user")
+@Document
 public abstract class User implements Serializable {
 
     @Id
-    private UUID id;
+    private String id;
     @Indexed(unique = true)
     @Email(message = "O campo email não pode estar vazio.")
     private String email;
@@ -32,7 +33,7 @@ public abstract class User implements Serializable {
     private String password;
     private String name;
     private String avatarUrl;
-
+    @DBRef
     private Set<Role> roles = new HashSet<>();
 
 
@@ -45,7 +46,7 @@ public abstract class User implements Serializable {
 
     }
 
-    public User(UUID id,String email,String password, String name,String avatarUrl){
+    public User(String id,String email,String password, String name,String avatarUrl){
         this.id = id;
         this.email = email;
         this.password = password;

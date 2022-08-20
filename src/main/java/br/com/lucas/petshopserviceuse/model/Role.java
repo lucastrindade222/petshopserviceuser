@@ -1,5 +1,6 @@
-package br.com.lucas.petshopserviceuse.domain;
+package br.com.lucas.petshopserviceuse.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,11 +22,9 @@ public class Role implements GrantedAuthority {
 
 
     @Id
-    private UUID id;
-    @Indexed( unique = true)
     private String nameRole;
 
-
+    @JsonIgnore
     private List<User> user = new ArrayList<>();
 
     public Role(String nameRole) {

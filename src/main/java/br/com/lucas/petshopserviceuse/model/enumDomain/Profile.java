@@ -1,8 +1,8 @@
-package br.com.lucas.petshopserviceuse.domain.enumDomain;
+package br.com.lucas.petshopserviceuse.model.enumDomain;
 
 public enum Profile {
 
-    ADMIN,
-    MEDICO
+    ROLE_ADMIN,
+    ROLE_CLIENTE
 
 }
