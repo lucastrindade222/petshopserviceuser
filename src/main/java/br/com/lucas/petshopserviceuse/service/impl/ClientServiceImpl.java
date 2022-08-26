@@ -10,6 +10,7 @@ import br.com.lucas.petshopserviceuse.service.RoleService;
 import br.com.lucas.petshopserviceuse.service.exception.UniqueFieldException;
 import br.com.lucas.petshopserviceuse.utils.UTILS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +22,12 @@ import br.com.lucas.petshopserviceuse.service.exception.ObjectNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static br.com.lucas.petshopserviceuse.model.enumDomain.Profile.ROLE_CLIENTE;
+import static br.com.lucas.petshopserviceuse.enums.RoleName.ROLE_CLIENT;
 
 @Service
 public class ClientServiceImpl implements ClientService {
-
-
-
-
-
+    @Value("${api.profiles.images.profile}")
+    private String url;
     @Autowired
     private JWTUtil jwtUtil;
     @Autowired
@@ -68,8 +66,9 @@ public class ClientServiceImpl implements ClientService {
 
 
             try {
-                client =(Client) UTILS.now().encryptPassword(client);
-                var role = roleService.findId(ROLE_CLIENTE.name());
+                client =  UTILS.now().encryptPassword(client);
+                var role = roleService.findId(ROLE_CLIENT.name());
+                client.setAvatarUrl(url);
                 client.addRole(role);
                 repo.save(client);
 

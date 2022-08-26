@@ -12,11 +12,14 @@ import java.util.Random;
 
 public class UTILS {
 
-    public User encryptPassword(User user) {
+    public Client encryptPassword(Client client) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        var encryptPassword = encoder.encode(user.getPassword());
-        user.setPassword(encryptPassword);
-        return user;
+        if(!client.getPassword().equals(null)){
+            var encryptPassword = encoder.encode(client.getPassword());
+            client.setPassword(encryptPassword);
+        }
+
+        return client;
     }
 
     public static UTILS now(){

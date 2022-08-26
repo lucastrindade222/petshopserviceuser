@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -28,8 +29,7 @@ import com.google.gson.Gson;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-import static br.com.lucas.petshopserviceuse.security.SecurityConstants.HEADER_STRING;
-import static br.com.lucas.petshopserviceuse.security.SecurityConstants.TOKEN_PREXI;
+import static br.com.lucas.petshopserviceuse.security.SecurityConstants.*;
 
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -66,7 +66,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String email = ((UserSS) authResult.getPrincipal()).getUsername();
         Collection<? extends GrantedAuthority> profile = ((UserSS) authResult.getPrincipal()).getAuthorities();
         String id = ((UserSS) authResult.getPrincipal()).getId();
-        String token = generateToken(email, id, profile);
+        String token = generateToken(email, id, profile,authResult);
         response.setStatus(200);
         response.setHeader(HEADER_STRING,token);
 
@@ -86,14 +86,18 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     }
 
-    public String generateToken(String email, String id, Collection<? extends GrantedAuthority> profile) {
+    public String generateToken(String email, String id, Collection<? extends GrantedAuthority> profile,Authentication authentication) {
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
 
         String token = Jwts.builder().setSubject(email)
                 .claim("id", id)
                 .claim("email", email)
-                .claim("role", profile)
+                .claim("roles", authorities)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET).compact();
+                .signWith(SignatureAlgorithm.HS512, SECRET).compact();
 
 
 

@@ -6,17 +6,13 @@ import br.com.lucas.petshopserviceuse.service.impl.ClientServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.lucas.petshopserviceuse.model.Client;
 import br.com.lucas.petshopserviceuse.dto.ClientmodelNew;
-import br.com.lucas.petshopserviceuse.service.ClientService;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping(value = "client")
@@ -29,19 +25,24 @@ public class ClientResource {
     private ModelMapper modelMapper;
 
     @GetMapping
-    @PreAuthorize("ROLE_CLIENTE")
     public ResponseEntity<List<Client>> findAll() {
 
         List<Client> all = service.findAll();
         return ResponseEntity.ok().body(all);
     }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Client> findById(@PathVariable String id) {
+
+        Client client = service.findId(id);
+        return ResponseEntity.ok().body(client);
+    }
 
     @PostMapping
     public ResponseEntity<Client> save(@Validated @RequestBody ClientmodelNew clientModelNew) {
-
+        System.out.println("teste");
         Client client = modelMapper.map(clientModelNew, Client.class);
         client = service.save(client);
-        return ResponseEntity.ok().body(client);
+        return ResponseEntity.status(CREATED).body(client);
     }
 
 }

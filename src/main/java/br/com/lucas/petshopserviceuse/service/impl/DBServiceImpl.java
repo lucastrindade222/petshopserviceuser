@@ -2,7 +2,7 @@ package br.com.lucas.petshopserviceuse.service.impl;
 
 import br.com.lucas.petshopserviceuse.model.Admin;
 import br.com.lucas.petshopserviceuse.model.Role;
-import br.com.lucas.petshopserviceuse.model.enumDomain.Profile;
+import br.com.lucas.petshopserviceuse.enums.RoleName;
 import br.com.lucas.petshopserviceuse.repository.AdminRepositoy;
 import br.com.lucas.petshopserviceuse.repository.RoleRepositoy;
 import br.com.lucas.petshopserviceuse.repository.UserRepositoy;
@@ -12,11 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 
-
-import static br.com.lucas.petshopserviceuse.model.enumDomain.Profile.ROLE_ADMIN;
+import static br.com.lucas.petshopserviceuse.enums.RoleName.ROLE_ADMIN;
 import static java.lang.System.out;
 
 @Service
@@ -50,11 +47,11 @@ public class DBServiceImpl implements DBService {
     @Override
     public void createRole() {
         out.println("-Create role....");
-        for (Profile profile :Profile.values()) {
+        for (RoleName profile : RoleName.values()) {
             var role = new Role(profile.name());
           role =   roleRepositoy.save(role);
           out.println("\n new Role:"+profile.name());
-            if(profile == ROLE_ADMIN){
+            if(role.getNameRole().equals(ROLE_ADMIN.name())){
                 roleAdmin = role;
             }
         }

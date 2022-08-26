@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
-@Data
+
 public class UserSS implements UserDetails {
     private static final long serialVersionUID = 1L;
 
@@ -38,6 +38,10 @@ public class UserSS implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
+
+   public String getId(){
+        return  this.id;
+   }
 
 
     @Override
